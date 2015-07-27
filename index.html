@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="pankaj-app">
+  <head>
+    <!--<script src="http://code.angularjs.org/angular-1.0.0rc3.min.js"></script>-->
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script type="text/javascript" src="pankaj.js"></script>
+    <link src="bootstrap/css/bootstrap.css">
+    <style>
+      table, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+      }
+      table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+      }
+      table tr:nth-child(even) {
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  
+  <body>
+
+    <form name="myform" ng-app="pankaj-app" ng-controller="Profile" novalidate>
+    	<span>First Name: </span><input type="text" ng-model="firstname" ng-model-instant>{{firstname | uppercase}}<br>
+    	<span>Last Name: </span><input type="text" ng-model="lastname" ng-model-instant>{{lastname | lowercase}}<br>
+      <span>Email Address: </span><input type="text" ng-model="email" ng-model-instant>{{checkEmail()}}<br>
+        <span>Alternate Email Address: </span><input type="email" name="altemail" ng-model="altemail" required>
+        <span style="color:red" ng-show="myform.altemail.$dirty && myform.altemail.$invalid">
+          <span ng-show="myform.altemail.$error.required">Email Address is required.</span>
+          <span ng-show="myform.altemail.$error.email">Invalid Email Address.</span>
+        </span>  
+        <input type="submit" value="check availablity" ng-disabled="myform.altemail.$dirty && myform.altemail.$invalid">
+      </form>
+      <br>
+      <span>Choose Password: </span><input type="text" ng-model="password" ng-model-instant><span ng-model="password" ng-show="password.length > 0">{{checkPassword()}}</span><br>
+      
+    	Your Message: <span ng-model="message" ng-show="message.length<10">(not less than {{getMessageMinLength()}} characters)</span><br>
+    	<textarea type="textarea" ng-model="message" ng-model-instant></textarea>{{message.length}}<br><br>
+    </form>
+
+    <div ng-controller="Profile">
+      <p><strong>Working with ng-init and ng-bind</strong></p>
+      <div ng-init="a=15;b=3">
+        <p>multiplication of a({{a}}) and b({{b}}) using Angular ng-init without binding is : {{a * b}}</p>
+        <p>multiplication of a({{a}}) and b({{b}}) using Angular ng-init with binding is : <span ng-bind="a * b"></span></p>
+      </div>
+
+      <div ng-init="person={firstname:'Pankaj',lastname:'Joshi'};course={code:'PCM',fee:'3000'}">
+        <p>Student name: {{person.firstname + ' ' + person.lastname}}<br>Course Enrolled: {{course.code}}<br>Course Fee: {{course.fee | currency}}</p>
+        <p>Student name: <span ng-bind="person.firstname + ' ' + person.lastname"></span><br>Course Enrolled: <span ng-bind="course.code"></span><br>Course Fee: <span ng-bind="course.fee | currency"></span></p>
+      </div>
+
+      <div ng-init="courses=[{code:'PCM', fee:300},{code:'CBZ', fee:280}, {code:'PCB', fee:250}, {code:'ABC', fee: 290}]">
+        <p><strong>Working with repeat, orderby</strong></p>
+        <ul>
+          <li ng-repeat="course in courses | orderBy:'fee'">
+            {{course.code}} - {{course.fee}}
+          </li>
+        </ul>
+
+        <p><strong>Working with repeat, input filter and order by</strong><br>
+          <input type="text" ng-model="test">
+        </p>
+        <ul>
+          <li ng-repeat="course in courses | filter:test | orderBy:'fee'">
+              {{course.code}} - {{course.fee}}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div ng-controller="JsonDataCtrl">
+
+      <p><strong>Working with JSON data</strong></p>
+      <input type="text" ng-model="resultName">
+      <ul>
+        <li ng-repeat="data in results | filter:resultName">
+          {{data.Name}} - {{data.City}} - {{data.Country}}
+        </li>
+      </ul>
+
+      <p><strong>Working with JSON data</strong></p>
+      <table>
+        <tr ng-repeat="td in results | orderBy:'City'">
+          <td>{{td.Name}}</td>
+          <td>{{td.City}}</td>
+          <td>{{td.Country}}</td>
+        </tr>
+      </table>
+      <div>
+        <p ng-show="isDisplay">Click the button <strong>SHOW</strong> to display my name</p><br>
+        <button ng-disabled="!isDisplay" ng-click="display()">SHOW</button><br>
+        <button ng-disabled="!isDisplay" ng-click="hide()">HIDE</button><br>
+        <input type="checkbox" ng-model="isDisplay" />Show my name<br>
+        <p ng-show="showMe">Pankaj Joshi</p>
+      </div>
+    </div>
+    <div ng-controller="testCtrl">
+      <h1 ng-click="clickedMe()">Click Me</h1>
+      <div>{{name}}</div>
+    </div>
+  </body>
+</html>

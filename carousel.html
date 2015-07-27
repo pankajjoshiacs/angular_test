@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.hideable {
+			    display: none;
+			}
+		</style>
+		<script type="text/javascript">
+			// direction = boolean value: true or false. If true, go to NEXT slide; otherwise go to PREV slide
+			function toggleSlide(direction) {
+			    var elements = document.getElementsByClassName("hideable"); // gets all the "slides" in our slideshow
+			    // Find the LI that's currently displayed
+			    var visibleID = getVisible(elements);
+			    elements[visibleID].style.display = "none"; // hide the currently visible LI
+			    if(!direction) {
+			        var makeVisible = prev(visibleID, elements.length); // get the previous slide
+			    } else {
+			        var makeVisible = next(visibleID, elements.length); // get the next slide
+			    }
+			    elements[makeVisible].style.display = "block"; // show the previous or next slide
+			}
+			function getVisible(elements) {
+			    var visibleID = -1;
+			    for(var i = 0; i < elements.length; i++) {
+			        if(elements[i].style.display == "block") {
+			            visibleID = i;
+			        }
+			    }
+			    return visibleID;
+			}
+			function prev(num, arrayLength) {
+			    if(num == 0) return arrayLength-1;
+			    else return num-1;
+			}
+			function next(num, arrayLength) {
+			    if(num == arrayLength-1) return 0;
+			    else return num+1;
+			}
+
+			var interval = 3500; // You can change this value to your desired speed. The value is in milliseconds, so if you want to advance a slide every 5 seconds, set this to 5000.
+			var switching = setInterval("toggleSlide(true)", interval);
+
+			window.paused = false;
+			function toggleInterval() {
+			    var button = document.getElementById("pauseButton");
+			    if(!window.paused) {
+			        clearInterval(switching);
+			        button.value = "Resume";
+			    } else {
+			        switching = setInterval("toggleSlide(true)", interval);
+			        button.value = "Pause";
+			    }
+			    window.paused = !(window.paused);
+			}
+			// where = boolean. false => go to first item, true => go to last item.
+			function goToEdge(where) {
+			    var elements = document.getElementsByClassName("hideable");
+			    var visibleID = getVisible(elements);
+			    var firstButton = document.getElementById("firstButton");
+			    var lastButton = document.getElementById("lastButton");
+			    elements[visibleID].style.display = "none"; //hides the currently visible item
+			    if(!where) {
+			        elements[0].style.display = "block"; //shows the first item
+			    } else {
+			        elements[elements.length-1].style.display = "block"; //shows the last item
+			    }
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<a href="#" id="prev" onclick="toggleSlide(false)"><</a>
+			<ul style="list-style-type: none; margin-left: 2em;">
+			    <li id="1" class="hideable" style="display: block;"><img src="images/1.jpg" class="image" alt="" /></li>
+			    <li id="2" class="hideable"><img src="images/2.jpg" class="image" alt="" /></li>
+			    <li id="3" class="hideable"><img src="images/3.jpg" class="image" alt="" /></li>
+			<!-- ... and so on --></ul>
+			<pre>
+			<!-- Buttons to go back and forth between slides. --></pre>
+			<a href="#" id="next" onclick="toggleSlide(true)">></a>
+		</div>
+		<form>
+			<input id="firstButton" type="button" value="First" onclick="goToEdge(false)"/>
+			<input type="button" value="Back" onclick="toggleSlide(false)"/>
+			<input id="pauseButton" type="button" value="Pause" onclick="toggleInterval()" />
+			<input type="button" value="Forward" onclick="toggleSlide(true)"/>
+			<input id="lastButton" type="button" value="Last" onclick="goToEdge(true)" />
+		</form>
+		<pre>
+	</body>
+</html>
