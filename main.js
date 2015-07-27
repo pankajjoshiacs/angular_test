@@ -1,4 +1,4 @@
-var app = angular.module('pankaj-app', []);
+var app = angular.module('main-app', []);
 
 //function Profile($scope) {
 app.controller('Profile', function($scope) {
