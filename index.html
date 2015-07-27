@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="pankaj-app">
+<html ng-app="main-app">
   <head>
     <!--<script src="http://code.angularjs.org/angular-1.0.0rc3.min.js"></script>-->
     <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-    <script type="text/javascript" src="pankaj.js"></script>
+    <script type="text/javascript" src="main.js"></script>
     <link src="bootstrap/css/bootstrap.css">
     <style>
       table, td {
@@ -22,7 +22,7 @@
   
   <body>
 
-    <form name="myform" ng-app="pankaj-app" ng-controller="Profile" novalidate>
+    <form name="myform" ng-app="main-app" ng-controller="Profile" novalidate>
     	<span>First Name: </span><input type="text" ng-model="firstname" ng-model-instant>{{firstname | uppercase}}<br>
     	<span>Last Name: </span><input type="text" ng-model="lastname" ng-model-instant>{{lastname | lowercase}}<br>
       <span>Email Address: </span><input type="text" ng-model="email" ng-model-instant>{{checkEmail()}}<br>
@@ -47,7 +47,7 @@
         <p>multiplication of a({{a}}) and b({{b}}) using Angular ng-init with binding is : <span ng-bind="a * b"></span></p>
       </div>
 
-      <div ng-init="person={firstname:'Pankaj',lastname:'Joshi'};course={code:'PCM',fee:'3000'}">
+      <div ng-init="person={firstname:'main',lastname:'Joshi'};course={code:'PCM',fee:'3000'}">
         <p>Student name: {{person.firstname + ' ' + person.lastname}}<br>Course Enrolled: {{course.code}}<br>Course Fee: {{course.fee | currency}}</p>
         <p>Student name: <span ng-bind="person.firstname + ' ' + person.lastname"></span><br>Course Enrolled: <span ng-bind="course.code"></span><br>Course Fee: <span ng-bind="course.fee | currency"></span></p>
       </div>
@@ -94,7 +94,7 @@
         <button ng-disabled="!isDisplay" ng-click="display()">SHOW</button><br>
         <button ng-disabled="!isDisplay" ng-click="hide()">HIDE</button><br>
         <input type="checkbox" ng-model="isDisplay" />Show my name<br>
-        <p ng-show="showMe">Pankaj Joshi</p>
+        <p ng-show="showMe">main Joshi</p>
       </div>
     </div>
     <div ng-controller="testCtrl">
