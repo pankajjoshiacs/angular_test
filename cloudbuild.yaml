@@ -5,3 +5,5 @@ artifacts:
   objects:
     location: 'gs://pankaj-test4/${_GITHUB_REPO_NAME}/dev'
     paths: ["mod.zip"]
+substitutions:
+  _SOME_KEY: "some-key"
