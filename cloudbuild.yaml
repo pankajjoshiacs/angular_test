@@ -1,0 +1,7 @@
+steps:
+- name: "gcr.io/epam-pankajjo/zip"
+  args: ['-r', 'mod.zip', '.', '-x', "*.git*"]
+artifacts:
+  objects:
+    location: 'gs://pankaj-test4/${_GITHUB_REPO_NAME}/dev'
+    paths: ["mod.zip"]
